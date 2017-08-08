@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include "tools.h"
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -17,7 +18,7 @@ public:
   bool is_initialized_;
 
   ///* if this is false, laser measurements will be ignored (except for init)
-  bool use_laser_;
+  bool use_lidar_;
 
   ///* if this is false, radar measurements will be ignored (except for init)
   bool use_radar_;
@@ -64,9 +65,18 @@ public:
   ///* Augmented state dimension
   int n_aug_;
 
+  //set measurement dimension, radar can measure r, phi, and r_dot
+  int n_z_;
+
   ///* Sigma point spreading parameter
   double lambda_;
 
+  ///* the current lidar NIS
+  double NIS_laser_;
+  double NIS_radar_;
+
+  MatrixXd H_laser_;
+  MatrixXd R_laser_;
 
   /**
    * Constructor
